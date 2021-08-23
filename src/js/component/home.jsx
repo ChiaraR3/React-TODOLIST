@@ -11,8 +11,12 @@ const Home = () => {
 		setNewTask(event.target.value);
 	}
 	function AddNewOne(event) {
-		if (event.key.toLowerCase() === "enter") setTasks([...tasks, newTask]);
+		if (event.key.toLowerCase() === "enter");
+		setTasks([...tasks, newTask]);
 		setNewTask(" ");
+	}
+	function deleteTask(indexToRemove) {
+		setTasks(tasks.filter((task, index) => index !== indexToRemove));
 	}
 
 	return (
@@ -26,13 +30,16 @@ const Home = () => {
 			/>
 			<ul>
 				{tasks.map((task, index) => (
-					<li key={index}>
+					<li key={index}>{task}
 						<span>{task}</span>
+						<button
+							onClick={() => {
+								deleteTask(index);
+							}}>
+							X
+						</button>
 					</li>
 				))}
-				<li> task 1</li>
-				<li> task 2</li>
-				<li> task 3</li>
 			</ul>
 		</div>
 	);
