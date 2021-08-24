@@ -9,9 +9,6 @@ const Home = () => {
 
 	function newTaskChange(event) {
 		setNewTask(event.target.value);
-		console.log(event);
-		console.log(newTask);
-		console.log(setNewTask);
 	}
 	function addNewOne(event) {
 		if (event.key === "Enter") {
@@ -19,28 +16,37 @@ const Home = () => {
 			setNewTask("");
 		}
 	}
+
+	function validateInput(event) {
+		if (newTask === "") {
+			alert("The to do cannot be empty");
+		}
+	}
+
 	function deleteTask(indexToRemove) {
 		setTasks(tasks.filter((task, index) => index !== indexToRemove));
 	}
 
 	return (
-		<div className="text-center mt-5">
+		<div className="text-center container">
+			TO DO LIST
 			<input
 				type="text"
 				placeholder="New Task"
-				onChange={newTaskChange}
+				onChange={(newTaskChange, validateInput)}
 				onKeyDown={addNewOne}
 				value={newTask}
 			/>
 			<ul>
 				{tasks.map((task, index) => (
-					<li key={index}>
+					<li className="list" key={index}>
 						<span>{task}</span>
 						<button
+							className="delete"
 							onClick={() => {
 								deleteTask(index);
 							}}>
-							X
+							x
 						</button>
 					</li>
 				))}
