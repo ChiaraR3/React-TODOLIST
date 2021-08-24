@@ -4,16 +4,20 @@ import React, { useState } from "react";
 
 //create your first component
 const Home = () => {
-	const [tasks, setTasks] = useState("Task, Task 2");
+	const [tasks, setTasks] = useState(["Task", "Task 2"]);
 	const [newTask, setNewTask] = useState("");
 
-	function NewTaskChange(event) {
+	function newTaskChange(event) {
 		setNewTask(event.target.value);
+		console.log(event);
+		console.log(newTask);
+		console.log(setNewTask);
 	}
-	function AddNewOne(event) {
-		if (event.key.toLowerCase() === "enter");
-		setTasks([...tasks, newTask]);
-		setNewTask(" ");
+	function addNewOne(event) {
+		if (event.key === "Enter") {
+			setTasks([...tasks, newTask]);
+			setNewTask("");
+		}
 	}
 	function deleteTask(indexToRemove) {
 		setTasks(tasks.filter((task, index) => index !== indexToRemove));
@@ -24,13 +28,13 @@ const Home = () => {
 			<input
 				type="text"
 				placeholder="New Task"
-				onChange={NewTaskChange}
-				onKeyPress={AddNewOne}
+				onChange={newTaskChange}
+				onKeyDown={addNewOne}
 				value={newTask}
 			/>
 			<ul>
 				{tasks.map((task, index) => (
-					<li key={index}>{task}
+					<li key={index}>
 						<span>{task}</span>
 						<button
 							onClick={() => {
