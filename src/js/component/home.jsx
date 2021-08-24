@@ -9,6 +9,9 @@ const Home = () => {
 
 	function newTaskChange(event) {
 		setNewTask(event.target.value);
+		//if (newTask === "") {
+		//	alert("The to do cannot be empty");
+		//}
 	}
 	function addNewOne(event) {
 		if (event.key === "Enter") {
@@ -33,7 +36,8 @@ const Home = () => {
 			<input
 				type="text"
 				placeholder="New Task"
-				onChange={(newTaskChange, validateInput)}
+				onChange={newTaskChange}
+				onClick={validateInput}
 				onKeyDown={addNewOne}
 				value={newTask}
 			/>
