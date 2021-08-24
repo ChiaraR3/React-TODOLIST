@@ -9,22 +9,21 @@ const Home = () => {
 
 	function newTaskChange(event) {
 		setNewTask(event.target.value);
-		//if (newTask === "") {
-		//	alert("The to do cannot be empty");
-		//}
 	}
 	function addNewOne(event) {
 		if (event.key === "Enter") {
 			setTasks([...tasks, newTask]);
 			setNewTask("");
 		}
-	}
-
-	function validateInput(event) {
 		if (newTask === "") {
 			alert("The to do cannot be empty");
 		}
 	}
+
+	//function validateInput(event) {
+	//	if (newTask === "") {
+	//		alert("The to do cannot be empty");
+	//	}
 
 	function deleteTask(indexToRemove) {
 		setTasks(tasks.filter((task, index) => index !== indexToRemove));
@@ -37,7 +36,6 @@ const Home = () => {
 				type="text"
 				placeholder="New Task"
 				onChange={newTaskChange}
-				onClick={validateInput}
 				onKeyDown={addNewOne}
 				value={newTask}
 			/>
