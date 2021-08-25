@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //include images into your bundle
 
@@ -6,6 +6,7 @@ import React, { useState } from "react";
 const Home = () => {
 	const [tasks, setTasks] = useState(["Task", "Task 2"]);
 	const [newTask, setNewTask] = useState("");
+	const [taskExists, setTaskExists] = useState(false);
 
 	function newTaskChange(event) {
 		setNewTask(event.target.value);
@@ -15,15 +16,23 @@ const Home = () => {
 			setTasks([...tasks, newTask]);
 			setNewTask("");
 		}
-		if (newTask === "") {
+	}
+
+	useEffect(() => {
+		let position = tasks.findIndex(task => task === newTask);
+		if (position === -1) {
+			setTaskExists(false);
+		} else {
+			setTaskExists(true);
+		}
+	}, [newTask]);
+
+	function validateInput(event) {
+		let positiondos = tasks.findIndex(task => newTask === " ");
+		if (positiondos === "") {
 			alert("The to do cannot be empty");
 		}
 	}
-
-	//function validateInput(event) {
-	//	if (newTask === "") {
-	//		alert("The to do cannot be empty");
-	//	}
 
 	function deleteTask(indexToRemove) {
 		setTasks(tasks.filter((task, index) => index !== indexToRemove));
@@ -39,7 +48,7 @@ const Home = () => {
 				onKeyDown={addNewOne}
 				value={newTask}
 			/>
-			<ul>
+			<ul className="tasks">
 				{tasks.map((task, index) => (
 					<li className="list" key={index}>
 						<span>{task}</span>

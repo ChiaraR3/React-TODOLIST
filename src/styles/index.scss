@@ -6,3 +6,17 @@
     font-size: large;
     color: blue;
 }
+
+.tasks{
+    .list{
+        .delete{
+            display:none;
+        }
+      &:hover{
+        .delete{
+            display:inline;
+        }
+    }
+}
+}
+    
