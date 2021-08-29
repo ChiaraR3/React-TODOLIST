@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 //create your first component
 const Home = () => {
-	const [tasks, setTasks] = useState(["Task", "Task 2"]);
+	const [tasks, setTasks] = useState(["task", "task 2"]);
 	const [newTask, setNewTask] = useState("");
 	const [taskExists, setTaskExists] = useState(false);
 
@@ -13,8 +13,13 @@ const Home = () => {
 	}
 	function addNewOne(event) {
 		if (event.key === "Enter") {
-			setTasks([...tasks, newTask]);
-			setNewTask("");
+			let position = tasks.findIndex(task => task === newTask);
+			if (position === -1) {
+				setTasks([...tasks, newTask]);
+				setNewTask("");
+			} else {
+				setTaskExists(true);
+			}
 		}
 	}
 
@@ -27,21 +32,15 @@ const Home = () => {
 		}
 	}, [newTask]);
 
-	function validateInput(event) {
-		let positiondos = tasks.findIndex(task => newTask === " ");
-		if (positiondos === "") {
-			alert("The to do cannot be empty");
-		}
-	}
-
 	function deleteTask(indexToRemove) {
 		setTasks(tasks.filter((task, index) => index !== indexToRemove));
 	}
 
 	return (
 		<div className="text-center container">
-			TO DO LIST
+			<h1>TO DO LIST</h1>
 			<input
+				className={taskExists ? "warning" : " "}
 				type="text"
 				placeholder="New Task"
 				onChange={newTaskChange}
@@ -50,7 +49,11 @@ const Home = () => {
 			/>
 			<ul className="tasks">
 				{tasks.map((task, index) => (
-					<li className="list" key={index}>
+					<li
+						className={
+							"list " + (task === newTask ? "warningToo" : " ")
+						}
+						key={index}>
 						<span>{task}</span>
 						<button
 							className="delete"
